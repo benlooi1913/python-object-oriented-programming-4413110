@@ -12,6 +12,7 @@ class Asset(ABC):
     def __init__(self, price):
         self.price = price
 
+# str method function get a string representation of our classes 
     @abstractmethod
     def __str__(self):
         pass
@@ -23,6 +24,11 @@ class Stock(Asset):
         self.company = company
         self.ticker = ticker
 
+    def __str__(self):
+        return f"{self.ticker}: {self.company} -- ${self.price}"
+    
+    def __lt__(self, value):
+        return self.price < value.price
 
 class Bond(Asset):
     def __init__(self, price, description, duration, yieldamt):
@@ -31,7 +37,12 @@ class Bond(Asset):
         self.duration = duration
         self.yieldamt = yieldamt
 
+    def __str__(self):
+        return f"{self.description}: {self.duration}'yr' : ${self.price} : {self.yieldamt}amt%"
 
+    def __lt__(self, value):
+        return self.yieldamt < value.yieldamt
+    
 # ~~~~~~~~~ TEST CODE ~~~~~~~~~
 stocks = [
     Stock("MSFT", 342.0, "Microsoft Corp"),
